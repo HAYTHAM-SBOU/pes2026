@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Pro | PES 2026 Edition</title>
+    <style>
+        /* --- CSS Toolkit --- */
+        :root {
+            --bg: #060b14;
+            --card: #111827;
+            --blue-neon: #38bdf8;
+            --text: #ffffff;
+            --dim: #94a3b8;
+            --gold: #fbbf24;
+            --red: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(145deg, #111827, #1f2937);
+            padding: 20px 30px;
+            border-radius: 15px;
+            border: 1px solid #374151;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--blue-neon);
+        }
+
+        /* Admin Control Panel */
+        .admin-controls {
+            background: #f8fafc;
+            color: #1e293b;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 3px solid var(--blue-neon);
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Groups Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #1f2937;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--blue-neon);
+        }
+
+        .card h3 {
+            color: var(--blue-neon);
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 15px;
+        }
+
+        /* Table Style */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th {
+            color: var(--dim);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 10px;
+            border-bottom: 2px solid #1f2937;
+        }
+
+        td {
+            padding: 12px 5px;
+            text-align: center;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        /* Inputs */
+        .input-neon {
+            width: 45px;
+            background: var(--blue-neon);
+            border: none;
+            color: #000;
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px;
+            font-weight: bold;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Match Info Box */
+        .match-info-box {
+            background: rgba(56, 189, 248, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px dashed rgba(56, 189, 248, 0.3);
+        }
+
+        .match-info-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 0.9rem;
+            color: var(--gold);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            align-items: center;
+        }
+
+        .info-input {
+            background: #1e293b;
+            color: white;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            padding: 5px 8px;
+            width: 60%;
+        }
+
+        /* Knockout Bracket */
+        .bracket-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .bracket-col {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            min-width: 220px;
+        }
+
+        .bracket-col h4 {
+            text-align: center;
+            color: var(--dim);
+            background: #1f2937;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .match-box {
+            background: var(--card);
+            border: 1px solid #374151;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .team-row {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn:active { transform: scale(0.95); }
+
+        .btn-start { background: var(--blue-neon); color: #000; width: 100%; font-size: 1rem; }
+        .btn-ko { background: var(--gold); color: #000; width: 100%; margin-top: 15px; }
+        
+        .hidden { display: none !important; }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="admin-header">
+        <h1>🏆 PES 2026 TOURNAMENT</h1>
+        <button class="btn" id="adminBtn" style="background: #334155; color: white;" onclick="toggleAdmin()">الإدارة 🔐</button>
+    </header>
+
+    <div id="adminPanel" class="admin-controls hidden">
+        <div id="setupView">
+            <h3>⚙️ إعداد المجموعات</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">أدخل أسماء الفرق (فريق في كل سطر):</p>
+            <textarea id="teamsInput" placeholder="مثال:&#10;ريال مدريد&#10;برشلونة&#10;بايرن ميونخ"></textarea>
+            <button class="btn btn-start" onclick="initTournament()">توليد البطولة عشوائياً 🎲</button>
+        </div>
+        
+        <div id="groupActions" class="hidden">
+            <button class="btn btn-ko" onclick="startKnockoutPhase()">إغلاق المجموعات وبدء الإقصائيات 🏁</button>
+            <button class="btn" style="background:var(--red); color:white; margin-top:10px; width: 100%;" onclick="resetAll()">حذف البطولة الحالية 🗑️</button>
+        </div>
+    </div>
+
+    <div id="groupView" class="grid">
+        </div>
+
+    <div id="knockoutView" class="hidden">
+        <h2 style="text-align: center; color: var(--gold); font-size: 2rem; margin-bottom: 30px;">🏁 شجرة الأدوار الإقصائية</h2>
+        <div class="bracket-container">
+            <div class="bracket-col" id="qf-col"></div>
+            <div class="bracket-col" id="sf-col"></div>
+            <div class="bracket-col" id="f-col"></div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
